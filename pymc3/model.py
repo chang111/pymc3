@@ -269,7 +269,11 @@ class Factor:
 
     @property
     def logp_nojact(self):
-        """Theano scalar of log-probability, excluding jacobian terms."""
+        """Theano scalar of log-probability of the model but without the jacobian 
+        if transformed Random Variable is presented.
+        Note that If there is no transformed variable in the model, logp_nojact 
+        will be the same as logpt as there is no need for Jacobian correction.
+        """
         if getattr(self, 'total_size', None) is not None:
             logp = tt.sum(self.logp_nojac_unscaledt) * self.scaling
         else:
